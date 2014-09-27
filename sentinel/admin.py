@@ -1,4 +1,4 @@
-from django.conf.urls.defaults import patterns
+from django.conf.urls import patterns
 from django.contrib.messages import success
 from django.contrib import admin
 from django.http import HttpResponseRedirect
