@@ -28,7 +28,8 @@ class AddressManager(models.Manager):
         return self.get_query_set().extra(where=[where], params=params)
     
 class Address(models.Model):
-    ip = IPField(unique=True, verbose_name='IP/Network', help_text='IP address or network (eg 172.1.1.1 or 172.0.0.0/24)')
+    ip =models.IPAddressField(unique=True, verbose_name='IP/Network', help_text='IP address or network (eg 172.1.1.1 or 172.0.0.0/24)')
+    #ip = IPField(unique=True, verbose_name='IP/Network', help_text='IP address or network (eg 172.1.1.1 or 172.0.0.0/24)')
     flag = models.PositiveSmallIntegerField(choices=FLAGS, db_index=True)
     useragent = models.CharField(max_length=255, blank=True, editable=False)
     created = models.DateTimeField(auto_now_add=True, db_index=True)
