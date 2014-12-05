@@ -21,7 +21,7 @@ else:
                     flag = get_flag(ip) 
                     if flag is None or int(flag) == MISS:
                         if not track(ip):
-                            pdb.set_trace()
+                            #pdb.set_trace()
                             return block(GREY, ip, request, update=True)
                         return
                     flag = int(flag)
