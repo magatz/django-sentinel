@@ -1,3 +1,4 @@
+from django.utils.timezone import utc
 from datetime import datetime, timedelta
 from django.db import models
 from django.core.exceptions import ValidationError
@@ -66,6 +67,8 @@ class Address(models.Model):
         if self.ip:
             self.range_from, self.range_to = get_range(self.ip)
             self.is_network = (self.range_to - self.range_from) > 0
+            self.updated = datetime.datetime.utcnow().replace(tzinfo=utc)
+            self.created = datetime.datetime.utcnow().replace(tzinfo=utc)
         super(Address, self).save(*args, **kwargs)
 
 import signals
