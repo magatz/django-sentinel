@@ -51,7 +51,7 @@ class Address(models.Model):
     @property
     def expiry(self):
         if self.flag == GREY:
-            return (self.updated or datetime.now()) + datetime.timedelta(seconds=EXPIRE)
+            return (self.updated or datetime.datetime.utcnow().replace(tzinfo=utc)) + datetime.timedelta(seconds=EXPIRE)
 
     # @property
     # def is_network(self):
