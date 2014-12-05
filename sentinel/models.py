@@ -1,6 +1,5 @@
 from django.utils.timezone import utc
 import datetime
-from datetime import timedelta
 from django.db import models
 from django.core.exceptions import ValidationError
 from fields import IPField
@@ -52,7 +51,7 @@ class Address(models.Model):
     @property
     def expiry(self):
         if self.flag == GREY:
-            return (self.updated or datetime.now()) + timedelta(seconds=EXPIRE)
+            return (self.updated or datetime.now()) + datetime.timedelta(seconds=EXPIRE)
 
     # @property
     # def is_network(self):

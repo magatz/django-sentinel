@@ -46,7 +46,7 @@ for dirpath, dirnames, filenames in os.walk(sentinel_dir):
 
 setup(
       name='django-sentinel',
-      version='0.2',
+      version='0.21',
       url='https://github.com/magatz/django-sentinel',      
       description = 'Anti scraping app for django',
       packages = packages,
