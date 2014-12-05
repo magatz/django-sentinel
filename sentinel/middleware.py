@@ -6,6 +6,7 @@ from track import *
 from flags import *
 from utils import *
 from settings import *
+import pdb
 
 if not cache_is_alive():
     print "Sentinel thinks the cache is dead, so it didn't bother loading."
@@ -20,6 +21,7 @@ else:
                     flag = get_flag(ip) 
                     if flag is None or int(flag) == MISS:
                         if not track(ip):
+                            pdb.set_trace()
                             return block(GREY, ip, request, update=True)
                         return
                     flag = int(flag)
