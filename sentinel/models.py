@@ -21,12 +21,12 @@ FLAGS = (
 
 FLAGS_DICT = dict(FLAGS)
 
-class AddressManager(models.Manager):
-    def matching(self, ip):
-        ip_from, ip_to = get_range(ip)
-        where = "(ip = %s) OR (%s BETWEEN range_from AND range_to) OR (%s BETWEEN range_from AND range_to) OR (%s <= range_from AND %s >= range_to)"
-        params = [str(ip), ip_from, ip_to, ip_from, ip_to]
-        return self.get_query_set().extra(where=[where], params=params)
+# class AddressManager(models.Manager):
+#     def matching(self, ip):
+#         ip_from, ip_to = get_range(ip)
+#         where = "(ip = %s) OR (%s BETWEEN range_from AND range_to) OR (%s BETWEEN range_from AND range_to) OR (%s <= range_from AND %s >= range_to)"
+#         params = [str(ip), ip_from, ip_to, ip_from, ip_to]
+#         return self.get_query_set().extra(where=[where], params=params)
     
 class Address(models.Model):
     ip =models.IPAddressField(unique=True, verbose_name='IP/Network', help_text='IP address or network (eg 172.1.1.1 or 172.0.0.0/24)')
@@ -35,11 +35,11 @@ class Address(models.Model):
     created = models.DateTimeField(auto_now_add=True, db_index=True)
     updated = models.DateTimeField(auto_now=True, db_index=True)
     count = models.PositiveIntegerField(default=0, editable=False, help_text='Total number of greylistings and auto-blacklistings')
-    is_network = models.BooleanField(default=False, editable=False, db_index=True)
+    #is_network = models.BooleanField(default=False, editable=False, db_index=True)
     # These could be used for db-based lookups
-    range_from = models.DecimalField(db_index=True, max_digits=39, decimal_places=0, editable=False)
-    range_to = models.DecimalField(db_index=True, max_digits=39, decimal_places=0, editable=False)
-    objects = AddressManager()
+    #range_from = models.DecimalField(db_index=True, max_digits=39, decimal_places=0, editable=False)
+    #range_to = models.DecimalField(db_index=True, max_digits=39, decimal_places=0, editable=False)
+    #objects = AddressManager()
     
     class Meta:
         verbose_name_plural = 'addresses'
@@ -65,8 +65,8 @@ class Address(models.Model):
         
     def save(self, *args, **kwargs):
         if self.ip:
-            self.range_from, self.range_to = get_range(self.ip)
-            self.is_network = (self.range_to - self.range_from) > 0
+            #self.range_from, self.range_to = get_range(self.ip)
+            #self.is_network = (self.range_to - self.range_from) > 0
             self.updated = datetime.datetime.utcnow().replace(tzinfo=utc)
             self.created = datetime.datetime.utcnow().replace(tzinfo=utc)
         super(Address, self).save(*args, **kwargs)
