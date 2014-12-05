@@ -28,7 +28,7 @@ else:
                         request.whitelisted = True
                         return
                     elif flag in (BLACK, GREY):
-                        return block(flag, ip, request)
+                        return block(self, flag, ip, request)
                     elif flag == BROWN:
                         request.brownlisted = True
                         return
