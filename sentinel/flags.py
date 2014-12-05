@@ -1,6 +1,6 @@
-import time, datetime
+
 from django.utils.timezone import utc
-import datetime 
+import datetime, time 
 from ipaddr import *
 from django.core.cache import cache
 from models import *
@@ -37,7 +37,7 @@ def load_flags(addresses=None):
         c += 1
         key = normalised_flag_key(a.ip)
         if a.expiry:
-            timeout = total_seconds(datetime.datetime.utcnow() - a.expiry)
+            timeout = total_seconds(datetime.datetime.utcnow().replace(tzinfo=utc) - a.expiry)
             if timeout > 0:
                 cache.set(key, a.flag, timeout)
         else:
