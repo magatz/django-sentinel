@@ -1,4 +1,4 @@
-from datetime import datetime, timedelta
+import datetime
 from django.shortcuts import render
 from django.db import IntegrityError
 from models import *
@@ -45,7 +45,7 @@ def _greylist(ip, useragent, request):
         address = Address(ip=ip, count=1)
     if address.flag == BLACK:
         return BLACK
-    if address.updated and address.updated < datetime.now() - timedelta(EXPIRE):
+    if address.updated and address.updated < datetime.datetime.now() - datetime.timedelta(EXPIRE):
         address.count += 1
     if address.count > AUTO_BLACK:
         flag = BLACK
@@ -61,7 +61,7 @@ def _greylist(ip, useragent, request):
     except IntegrityError:
         try:
             a = Address.objects.get(ip=ip)
-            if address.updated and address.updated < datetime.now() - timedelta(EXPIRE):
+            if address.updated and address.updated < datetime.datetime.now() - datetime.timedelta(EXPIRE):
                 a.count = address.count + 1
             a.flag = flag
             a.useragent = address.useragent
