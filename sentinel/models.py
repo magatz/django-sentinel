@@ -1,5 +1,6 @@
 from django.utils.timezone import utc
-from datetime import datetime, timedelta
+import datetime
+from datetime import timedelta
 from django.db import models
 from django.core.exceptions import ValidationError
 from fields import IPField
