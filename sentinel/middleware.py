@@ -58,7 +58,7 @@ def _greylist(ip, useragent, request):
     address.flag = flag
     address.useragent = useragent
     try:
-        pdb.set_trace()
+        #pdb.set_trace()
         address.save()
     except IntegrityError:
         try:
