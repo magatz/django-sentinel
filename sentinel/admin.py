@@ -10,7 +10,7 @@ from forms import BulkForm
 
 class AddressAdmin(admin.ModelAdmin):
     list_display = ('ip', 'flag', 'useragent_', 'updated')
-    list_filter = ('flag', 'is_network', 'updated', )
+    list_filter = ('flag',  'updated', )
     search_fields = ('ip', 'useragent', )
     readonly_fields = ('useragent', 'count', 'created', 'updated', )
     actions = ['delete_selected', 'whitelist', 'greylist', 'blacklist', 'brownlist']
