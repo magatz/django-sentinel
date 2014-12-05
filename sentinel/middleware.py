@@ -73,7 +73,7 @@ def _greylist(ip, useragent, request):
     cache.set(normalised_flag_key(ip), flag, timeout=EXPIRE if flag == GREY else AGES)
     return flag
     
-def block(flag, ip, request, update=False):
+def block(flag, ip, request, update):
     useragent = request.META.get('HTTP_USER_AGENT', 'Unknown')
     if flag == GREY and update:
         flag = _greylist(ip, useragent, request)
